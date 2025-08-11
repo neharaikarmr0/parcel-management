@@ -5,6 +5,7 @@ import com.spring.ParcelManagement.repo.ParcelRepo;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,16 @@ public class ParcelService {
     public String displayTrackStatus(String booking_id){
         String status = repo.displayTrackStatus(booking_id);
         return status;
+    }
+    
+    public int updateDelivery(String booking_id, String del_status){
+        int result = repo.updateDelivery(booking_id,del_status);
+        return result;
+    }
+    
+    public int updatePickup(String booking_id, LocalDateTime pickup_datetime){
+        int result = repo.updatePickup(booking_id,pickup_datetime);
+        return result;
     }
 }
 

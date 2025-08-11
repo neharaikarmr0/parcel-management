@@ -2,6 +2,8 @@ package com.spring.ParcelManagement.repo;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.spring.ParcelManagement.rowmapper.BookingRowMapper;
@@ -50,5 +52,27 @@ public class ParcelRepo {
         String sql = "select status from booking where booking_id=?";
         return jdbcTemplate.queryForObject(
                 sql, new Object[]{booking_id}, String.class);
+    }
+    
+    public int updateDelivery(String booking_id, String del_status){
+        String sql = "update booking set status = ? where booking_id = ?";
+        return jdbcTemplate.update(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1, del_status);
+                ps.setString(2, booking_id);
+            }
+        });
+}
+    
+    public int updatePickup(String booking_id, LocalDateTime pickup_datetime) {
+        String sql = "update booking set pickup_datetime=? where booking_id=?";
+        return jdbcTemplate.update(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+            	 ps.setTimestamp(1, Timestamp.valueOf(pickup_datetime)); // LocalDateTime → Timestamp
+                 ps.setString(2, booking_id);
+            }
+        });
     }
 }

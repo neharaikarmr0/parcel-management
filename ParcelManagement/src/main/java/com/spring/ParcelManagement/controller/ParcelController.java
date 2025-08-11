@@ -1,10 +1,12 @@
 package com.spring.ParcelManagement.controller;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,5 +60,25 @@ public class ParcelController {
             String status = service.displayTrackStatus(booking_id);
         //log.info(status);
             return status;
+    }
+    
+    @PostMapping("/updateDeliveryStatus")
+    @ResponseBody
+    public String updateDeliveryStatus(@RequestParam String booking_id, @RequestParam String del_status){
+        int result = service.updateDelivery(booking_id,del_status);
+        if(result==1) {
+        	return "Delivery status updated successfully!";
+        }
+        return "Delivery status not updated";
+    }
+    
+    @PostMapping("/updatePickup")
+    @ResponseBody
+    public String updatePickupDrop(@RequestParam String booking_id, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime pickup_datetime){
+        int res = service.updatePickup(booking_id,pickup_datetime);
+        if(res==1) {
+        	return "Pickup date and time updated successfully!";
+        }
+        return "Pickup date and time not updated ";
     }
 }
