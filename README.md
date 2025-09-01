@@ -1,0 +1,1 @@
+A Springboot application developed using Spring Boot and MySQL to manage the lifecycle of parcel deliveries. The system enables users to book parcels, track delivery status, and manage customer and shipment details robust backend.
