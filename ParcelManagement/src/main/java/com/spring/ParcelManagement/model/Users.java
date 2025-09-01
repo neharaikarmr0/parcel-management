@@ -7,7 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "users")
 @Data 
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,3 +107,6 @@ public class User {
 		this.con_password = con_password;
 	}
 }
+
+
+
